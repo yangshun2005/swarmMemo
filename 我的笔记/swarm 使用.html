@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 9.0.4 (457911)"/><meta name="author" content="Ys"/><meta name="created" content="2019-05-13 13:59:56 +0000"/><meta name="source" content="desktop.win"/><meta name="source-application" content="yinxiang.win32"/><meta name="updated" content="2019-05-14 06:38:00 +0000"/><meta name="content-class" content="yinxiang.markdown"/><title>swarm 使用</title></head><body><div style="font-size: 14px; margin: 0; padding: 0; width: 100%;"><h2 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 34px; border-bottom: 1px solid #dbdbdb; color: #333;">swarm使用</h2>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">1. swarm常用命令节选</h3>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;"># 查看swarm集群情况
+docker node ls
+
+# 初始化swarm集群的manager节点
+docker swarm init --advertise-addr &lt;IP-String&gt;
+
+# 修改时区和时间
+cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+
+date -s "2019-05-13 22:44"
+
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/BAA32746-AB00-445D-AB2D-612964F4FBC9.png" height="466" width="329"/></p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/DCA04DF2-767B-461F-AEB3-4F95543199BA.png" height="442" width="1796"/></p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/7734D361-5108-436B-A6B9-52AF9BF2F4B9.png" height="882" width="1800"/></p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/4E83D1BC-4076-4942-B7A9-C2436F0F3D31.png" height="832" width="1475"/></p>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">2.  部署和常用命令</h3>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/3AC486E4-9175-4F40-A4FE-B75F42CD6E07.png" height="459" width="1240"/></p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/1DDD76C1-B194-44A9-A421-0493984F7ED9.png" height="801" width="1504"/></p>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">3. 数据持久化</h3>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/2E75B23E-C003-478D-972E-48E0147742CA.png" height="470" width="1228"/></p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/31C841BA-4925-4D9D-902C-61E8C0837ABE.png" height="377" width="991"/></p>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">4.发布服务和负载均衡</h3>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/F06B09BC-2407-4E8A-85A1-7217C48BBD68.png" height="509" width="729"/></p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/CA47497E-C01D-4F05-B29A-D685464E9608.png" height="174" width="1226"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/6257C876-0277-4C4A-A83D-396FAD700350.png" height="281" width="1739"/></p>
+<h5 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 16px; color: #333;">在manage节点使用 $docker network ls  可以查看集群内组网模式和信息（即可以查看有几个swarm网络）  需要注意该manage节点不比k8s的master，他仅是处理docker swarm的CURD分发命令，其生死不影响集群有效性，实现了去中心设计</h5>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/4EEFFA62-AFB9-404D-9190-87CBD8FE058C.png" height="693" width="936"/></p>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">5.服务发现</h3>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/D4DEDD9D-F660-4523-8066-A83E190560AB.png" height="886" width="1824"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/AAD29E21-B569-47E2-8AE3-94DF309DE55A.png" height="416" width="1219"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/3F49480A-7ABA-4D3E-AB17-ACDB9AAF0F14.png" height="555" width="705"/></p>
+<h4 style="line-height: 160%; box-sizing: content-box; font-size: 20px; color: #333;">服务发现机制实例</h4>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/C468908B-F180-405D-B505-29E0B04BCC4C.png" height="321" width="1246"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/C4F00911-FE69-4DCB-8836-CF2E412661DA.png" height="496" width="681"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/427F0D65-CABD-475E-A9A7-CCB73DAA219C.png" height="401" width="892"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/CBE7E5CB-43F6-4FE7-83DF-64F50DD08340.png" height="471" width="894"/></p>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">6.高可用架构</h3>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/8218DFF7-AECC-40A9-B31E-A177C6AFAE1E.png" height="663" width="1802"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/8965D060-D9DF-43C7-9A89-390584F81027.png" height="594" width="1900"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/F9AEEBD1-13EA-4D0E-9546-D43A7CA24DFC.png" height="538" width="1898"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/5C6CC22A-2AC0-4204-AEC5-70944D08DDF7.png" height="395" width="1342"/></p>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">7.配置文件管理</h3>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/A15AB2AC-0C82-4F4A-88F2-26D1B327D4CA.png" height="803" width="1045"/></p>
+<h3 style="line-height: 160%; box-sizing: content-box; font-weight: 700; font-size: 27px; color: #333;">8.实例</h3>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/16D099CE-FAA0-4C29-8776-98CE5A5F9ABA.png" height="467" width="852"/></p>
+<pre style="line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; margin: 2px 0 8px; background-color: #f5f7f8;"><code style="display: block; overflow-x: auto; background: #1e1e1e; line-height: 160%; box-sizing: content-box; border: 0; border-radius: 0; letter-spacing: -.3px; padding: 18px; color: #f4f4f4; white-space: pre-wrap;">用于swarm的DockerFile地址 ：https://drive.google.com/file/d/1sdLKMltgxHVBnvqBxTqp-A_h0UoxURBt/view?usp=sharing
+</code></pre>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;"><img src="swarm%20%E4%BD%BF%E7%94%A8.resources/78E897BF-FE9B-4639-8AB7-6B2C69ECD7F4.png" height="288" width="853"/><br/>
+<img src="swarm%20%E4%BD%BF%E7%94%A8.resources/30C7D4D3-88BA-46DE-8AC8-74657AFE6E53.png" height="453" width="1258"/></p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">,<br/>
+.<br/>
+.<br/>
+.<br/>
+.<br/>
+.,<br/>
+.<br/>
+.<br/>
+.<br/>
+.<br/>
+.,<br/>
+.<br/>
+.<br/>
+.<br/>
+.<br/>
+.,<br/>
+.<br/>
+.<br/>
+.<br/>
+.<br/>
+.,<br/>
+.<br/>
+.<br/>
+.<br/>
+.<br/>
+.</p>
+<p style="line-height: 160%; box-sizing: content-box; margin: 10px 0; color: #333;">===========================================</p>
+</div><center style="display:none !important;visibility:collapse !important;height:0 !important;white-space:nowrap;width:100%;overflow:hidden">%23%23%20swarm%E4%BD%BF%E7%94%A8%0A%0A%23%23%23%201.%20swarm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%8A%82%E9%80%89%0A%60%60%60%0A%23%20%E6%9F%A5%E7%9C%8Bswarm%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5%0Adocker%20node%20ls%0A%0A%23%20%E5%88%9D%E5%A7%8B%E5%8C%96swarm%E9%9B%86%E7%BE%A4%E7%9A%84manager%E8%8A%82%E7%82%B9%0Adocker%20swarm%20init%20--advertise-addr%20%3CIP-String%3E%0A%0A%23%20%E4%BF%AE%E6%94%B9%E6%97%B6%E5%8C%BA%E5%92%8C%E6%97%B6%E9%97%B4%0Acp%20%2Fusr%2Fshare%2Fzoneinfo%2FAsia%2FShanghai%20%20%2Fetc%2Flocaltime%0A%0Adate%20-s%20%222019-05-13%2022%3A44%22%0A%0A%60%60%60%0A%0A!%5Bbe961c19a65c45e66a43447d923246fd.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3848)%0A%0A!%5B50bb1b1ff4421d115df8b6930228696b.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3878)%0A%0A!%5Bc28515806fb121c9c034b51ab0f1e0eb.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3874)%0A%0A!%5B3be52351ee0c0e368632e8732fa5b44e.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3849)%0A%0A%23%23%23%202.%20%20%E9%83%A8%E7%BD%B2%E5%92%8C%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%0A!%5Bcc1f5d7768dc062153a03a852d3532d6.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3854)%0A%0A!%5B66a4340ac22c4609eb8928912e9113bd.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3851)%0A%0A%20%23%23%23%203.%20%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%0A!%5B06c4940af8fa773dd8579a5d39c19b41.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3852)%0A%20%0A!%5B064065964caa7e7a74db8ab01c05cece.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3853)%0A%0A%20%23%23%23%204.%E5%8F%91%E5%B8%83%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%0A%20!%5Bf40c21b9f1a4e96d8b27650687ed57d4.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3855)%0A%20%0A%20!%5B47e58c837150661ae3d0b1fd3e5f716d.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3856)%0A%20!%5Bbdd70e5ff36fb1d951c90e2ac06f49bf.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3857)%0A%20%23%23%23%23%23%20%E5%9C%A8manage%E8%8A%82%E7%82%B9%E4%BD%BF%E7%94%A8%20%24docker%20network%20ls%20%20%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E5%86%85%E7%BB%84%E7%BD%91%E6%A8%A1%E5%BC%8F%E5%92%8C%E4%BF%A1%E6%81%AF%EF%BC%88%E5%8D%B3%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E6%9C%89%E5%87%A0%E4%B8%AAswarm%E7%BD%91%E7%BB%9C%EF%BC%89%20%20%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E8%AF%A5manage%E8%8A%82%E7%82%B9%E4%B8%8D%E6%AF%94k8s%E7%9A%84master%EF%BC%8C%E4%BB%96%E4%BB%85%E6%98%AF%E5%A4%84%E7%90%86docker%20swarm%E7%9A%84CURD%E5%88%86%E5%8F%91%E5%91%BD%E4%BB%A4%EF%BC%8C%E5%85%B6%E7%94%9F%E6%AD%BB%E4%B8%8D%E5%BD%B1%E5%93%8D%E9%9B%86%E7%BE%A4%E6%9C%89%E6%95%88%E6%80%A7%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%BA%86%E5%8E%BB%E4%B8%AD%E5%BF%83%E8%AE%BE%E8%AE%A1%0A!%5B68328a2ffa966619068a39e7c0fe829c.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3858)%0A%0A%23%23%23%205.%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%0A!%5B88795d21e5301b101a00bf10adc757e8.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3859)%0A!%5B0458a3891792a70eafbffe70e0f7dfe7.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3860)%0A!%5B0c3e255ec8d2208183ff83721d1eb495.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3861)%0A%0A%23%23%23%23%20%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E4%BE%8B%0A!%5Bfb4b10f00a88700ae55a3e956d4a52b9.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3862)%0A!%5B590834b18ae0a1d9fd21759ff13d8c2a.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3863)%0A!%5B2122b609f738849422a12187845fb3e3.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3864)%0A!%5Bb67f56d8fed58e53015a4f9108e659a9.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3866)%0A%0A%23%23%23%206.%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84%0A!%5B705b8b1b69c0ce6fabca1ef03bd917b5.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3865)%0A!%5B77f4ad83c6e46dd20e117d22a3a5a09d.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3867)%0A!%5B79db9ba153c3e9d8671218e9dd16c7d6.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3868)%0A!%5B167d6354f66993fb95a3ac8030ef72ac.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3869)%0A%0A%23%23%23%207.%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86%0A!%5B41ce9c5c5edeacc01680dd6806f36751.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3870)%0A%0A%0A%23%23%23%208.%E5%AE%9E%E4%BE%8B%0A!%5Ba58718586c5e143e6b285d041bd23d5d.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3871)%0A%60%60%60%0A%E7%94%A8%E4%BA%8Eswarm%E7%9A%84DockerFile%E5%9C%B0%E5%9D%80%20%EF%BC%9Ahttps%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1sdLKMltgxHVBnvqBxTqp-A_h0UoxURBt%2Fview%3Fusp%3Dsharing%0A%60%60%60%0A!%5B5a68ba1a01f3ccbf2ff984a8b192ae7f.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3872)%0A!%5B8518424e574527c49ee88a01a5586f04.png%5D(evernotecid%3A%2F%2F7B25E648-36D0-4854-B52E-D7B2D3D73627%2Fappyinxiangcom%2F9988232%2FENResource%2Fp3873)%0A%0A%0A%0A%0A%0A%0A%0A%2C%0A.%0A.%0A.%0A.%0A.%2C%0A.%0A.%0A.%0A.%0A.%2C%0A.%0A.%0A.%0A.%0A.%2C%0A.%0A.%0A.%0A.%0A.%2C%0A.%0A.%0A.%0A.%0A.%0A%0A%0A%0A%0A%0A%0A%0A%0A%0A%0A%0A%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A</center></body></html>
