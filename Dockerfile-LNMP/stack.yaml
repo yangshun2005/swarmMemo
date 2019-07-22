@@ -1,0 +1,73 @@
+version: '3.3'
+services:
+  nginx:
+    image: 192.168.0.213:5000/nginx:v1
+    ports:
+      - 88:80
+    networks:
+      - lnmp_net
+    deploy:
+      mode: replicated
+      replicas: 3
+      endpoint_mode: vip
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 300M
+    volumes:
+      - type: bind
+        source: /nfs/lnmp_wwwroot
+        target: /usr/local/nginx/html
+    configs:
+      - source: nginx_config
+        target: /usr/local/nginx/conf/vhost/site.conf
+    depends_on:
+      - php
+
+  php:
+    image: 192.168.0.213:5000/php:v1
+    networks:
+      - lnmp_net
+    deploy:
+      mode: replicated
+      replicas: 3 
+      endpoint_mode: vip
+    volumes:
+      - type: bind
+        source: /nfs/lnmp_wwwroot
+        target: /usr/local/nginx/html
+
+  mysql:
+    image: mysql:5.6
+    networks:
+      - lnmp_net
+    deploy:
+      placement:
+        constraints: 
+          - node.role == manager
+      endpoint_mode: dnsrr
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/mysql
+      # - "db-data:/var/lib/mysql"
+    command: --character-set-server=utf8
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wp123456
+
+networks:
+  lnmp_net:
+    driver: overlay
+
+volumes:
+  db-data:
+
+configs:
+  nginx_config:
+    file: ./site.conf
